@@ -40,5 +40,40 @@ final authStateChangesProvider = StreamProvider<AppUser?>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef AuthStateChangesRef = StreamProviderRef<AppUser?>;
+String _$idTokenChangesHash() => r'e6058ad0b90d6e10b628af4b3dbd180a67b7146e';
+
+/// See also [idTokenChanges].
+@ProviderFor(idTokenChanges)
+final idTokenChangesProvider = StreamProvider<AppUser?>.internal(
+  idTokenChanges,
+  name: r'idTokenChangesProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$idTokenChangesHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef IdTokenChangesRef = StreamProviderRef<AppUser?>;
+String _$isCurrentUserAdminHash() =>
+    r'69fab3db094dff0016a615b1e8b1047beabb06c5';
+
+/// See also [isCurrentUserAdmin].
+@ProviderFor(isCurrentUserAdmin)
+final isCurrentUserAdminProvider = AutoDisposeFutureProvider<bool>.internal(
+  isCurrentUserAdmin,
+  name: r'isCurrentUserAdminProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$isCurrentUserAdminHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef IsCurrentUserAdminRef = AutoDisposeFutureProviderRef<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
