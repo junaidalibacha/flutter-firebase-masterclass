@@ -104,15 +104,16 @@ Stream<Product?> product(Ref ref, ProductID id) {
 }
 
 @riverpod
-Future<List<Product>> productsListSearch(
-    Ref ref, String query) async {
+Future<List<Product>> productsListSearch(Ref ref, String query) async {
   final link = ref.keepAlive();
   // a timer to be used by the callbacks below
   Timer? timer;
+
   // When the provider is destroyed, cancel the http request and the timer
   ref.onDispose(() {
     timer?.cancel();
   });
+
   // When the last listener is removed, start a timer to dispose the cached data
   ref.onCancel(() {
     // start a 30 second timer
@@ -121,10 +122,12 @@ Future<List<Product>> productsListSearch(
       link.close();
     });
   });
+
   // If the provider is listened again after it was paused, cancel the timer
   ref.onResume(() {
     timer?.cancel();
   });
+
   final productsRepository = ref.watch(productsRepositoryProvider);
   return productsRepository.searchProducts(query);
 }

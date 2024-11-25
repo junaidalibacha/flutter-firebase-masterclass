@@ -9,14 +9,13 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final goRouter = ref.watch(goRouterProvider);
+
     return MaterialApp.router(
-      routerConfig: goRouter,
       debugShowCheckedModeBanner: false,
       restorationScopeId: 'app',
+      routerConfig: goRouter,
       onGenerateTitle: (BuildContext context) => 'My Shop'.hardcoded,
       theme: ThemeData(
-        // * Use this to toggle Material 3 (defaults to true since Flutter 3.16)
-        useMaterial3: true,
         primarySwatch: Colors.grey,
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black87,
