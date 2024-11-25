@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/src/common_widgets/alert_dialogs.dart';
 import 'package:ecommerce_app/src/exceptions/app_exception.dart';
 import 'package:ecommerce_app/src/localization/string_hardcoded.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,10 +21,12 @@ extension AsyncValueUI on AsyncValue {
   }
 
   String _errorMessage(Object? error) {
-    if (error is AppException) {
-      return error.message;
-    } else {
-      return error.toString();
+    if (error is AppException) return error.message;
+
+    if (error is FirebaseAuthException) {
+      if (error.message != null) return error.message!;
     }
+
+    return error.toString();
   }
 }

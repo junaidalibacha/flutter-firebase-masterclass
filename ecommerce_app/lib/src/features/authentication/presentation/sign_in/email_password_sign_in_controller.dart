@@ -12,24 +12,29 @@ class EmailPasswordSignInController extends _$EmailPasswordSignInController {
   FutureOr<void> build() {
     // nothing to do
   }
-  Future<bool> submit(
-      {required String email,
-      required String password,
-      required EmailPasswordSignInFormType formType}) async {
+  Future<bool> submit({
+    required String email,
+    required String password,
+    required EmailPasswordSignInFormType formType,
+  }) async {
     state = const AsyncValue.loading();
-    state =
-        await AsyncValue.guard(() => _authenticate(email, password, formType));
+    state = await AsyncValue.guard(
+      () => _authenticate(email, password, formType),
+    );
     return state.hasError == false;
   }
 
   Future<void> _authenticate(
-      String email, String password, EmailPasswordSignInFormType formType) {
+    String email,
+    String password,
+    EmailPasswordSignInFormType formType,
+  ) {
     final authRepository = ref.read(authRepositoryProvider);
-    switch (formType) {
-      case EmailPasswordSignInFormType.signIn:
-        return authRepository.signInWithEmailAndPassword(email, password);
-      case EmailPasswordSignInFormType.register:
-        return authRepository.createUserWithEmailAndPassword(email, password);
-    }
+    return switch (formType) {
+      EmailPasswordSignInFormType.signIn =>
+        authRepository.signInWithEmailAndPassword(email, password),
+      EmailPasswordSignInFormType.register =>
+        authRepository.createUserWithEmailAndPassword(email, password)
+    };
   }
 }
